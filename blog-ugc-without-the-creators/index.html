@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://blog.sogni.ai/assets/sogni-favicon-32.png?v=sogni1">
+  <link rel="shortcut icon" type="image/png" href="https://blog.sogni.ai/assets/sogni-favicon-32.png?v=sogni1">
+  <link rel="apple-touch-icon" sizes="256x256" href="https://blog.sogni.ai/assets/sogni-apple-touch.png?v=sogni1">
+<title>UGC Without the Creators — How to Make UGC Ads with AI | Sogni</title>
+<meta name="description" content="Turn one product photo into scroll-stopping influencer videos and a full still campaign - no casting, no shipping samples, no reshoots. Built end-to-end in Sogni Chat and the Sogni Skill with Seedance 2.0.">
+<link rel="canonical" href="https://natalieart.github.io/blog-ugc-without-the-creators/">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Sogni">
+<meta property="og:url" content="https://natalieart.github.io/blog-ugc-without-the-creators/">
+<meta property="og:title" content="UGC Without the Creators — How to Make UGC Ads with AI | Sogni">
+<meta property="og:description" content="One product photo in. AI influencer videos and a full campaign out. Built in Sogni Chat and the Sogni Skill with Seedance 2.0.">
+<meta property="og:image" content="https://natalieart.github.io/blog-ugc-without-the-creators/assets/banner.jpg">
+<meta property="og:image:width" content="1774">
+<meta property="og:image:height" content="887">
+<meta property="og:image:alt" content="UGC without the creators - AI-generated influencers for EDGE, LUMI, LUMINA and activewear made with Sogni.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="UGC Without the Creators — How to Make UGC Ads with AI | Sogni">
+<meta name="twitter:description" content="One product photo in. AI influencer videos and a full campaign out. Built in Sogni Chat and the Sogni Skill.">
+<meta name="twitter:image" content="https://natalieart.github.io/blog-ugc-without-the-creators/assets/banner.jpg">
+<style>
+  :root{
+    --bg:#050704;
+    --panel:#0d100c;
+    --panel-2:#121611;
+    --line:#222a20;
+    --ink:#eef2ea;
+    --muted:#9aa395;
+    --soft:#c5ccbe;
+    --accent:#00f0c0;
+    --accent-2:#5bf0d2;
+    --on-accent:#04221b;
+    --magenta:#d24bf5;
+    --radius:18px;
+    --colw:900px;     /* narrow article column (intro / toc / cta) */
+    --stepw:1440px;   /* step card width */
+    --maxw:1440px;    /* full-width band (banner, gallery) */
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  section[id], .s4-row[id]{scroll-margin-top:92px}
+  body{
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Helvetica,Arial,sans-serif;
+    line-height:1.65;-webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent-2);text-decoration:none}
+  a:hover{text-decoration:underline}
+  img,video{max-width:100%;display:block}
+
+  .band{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .col{max-width:var(--colw);margin:0 auto;padding:0 22px}
+  .stepwrap{max-width:var(--stepw);margin:0 auto;padding:0 22px}
+
+  /* ---------- top nav (reference style) ---------- */
+  .topbar{border-bottom:1px solid var(--line);background:rgba(5,7,4,.9);backdrop-filter:blur(8px);position:sticky;top:0;z-index:50}
+  .topbar .band{display:flex;align-items:center;justify-content:space-between;height:64px;gap:14px}
+  .brand{display:flex;align-items:center;gap:13px}
+  .brand .logo{display:flex;align-items:center}
+  .brand .logo img{height:26px;width:auto;display:block}
+  .brand .logo:hover{text-decoration:none;filter:brightness(1.12)}
+  .brand .slash{color:var(--muted);font-size:18px;font-weight:300}
+  .brand .sub{font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:var(--soft)}
+  .topbar nav{display:flex;align-items:center;gap:22px}
+  .topbar nav a.navlink{color:var(--ink);font-size:14px;font-weight:600}
+  .topbar nav a.navlink:hover{color:var(--accent);text-decoration:none}
+  .topbar nav a.back{color:var(--ink);font-size:14px;font-weight:600;border:1px solid var(--line);padding:9px 18px;border-radius:11px}
+  .topbar nav a.back:hover{border-color:var(--accent);text-decoration:none}
+  .topbar nav a.sub{color:var(--on-accent);background:var(--accent);font-size:14px;font-weight:700;padding:10px 20px;border-radius:11px}
+  .topbar nav a.sub:hover{text-decoration:none;filter:brightness(1.05)}
+  @media(max-width:720px){.brand .sub{display:none}.topbar nav a.navlink{display:none}.topbar nav a.back{display:none}}
+
+  /* ---------- banner ---------- */
+  .banner{margin-top:8px}
+  .banner img{width:100%;border-radius:var(--radius);border:1px solid var(--line)}
+
+  /* ---------- model pills ---------- */
+  .pills{display:flex;flex-wrap:wrap;gap:14px;margin:22px auto 0;max-width:var(--maxw);padding:0 22px}
+  .pill{flex:1 1 240px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;text-align:center}
+  .pill b{display:block;color:var(--accent);font-size:11.5px;letter-spacing:.03em;text-transform:uppercase;margin-bottom:2px}
+  .pill span{color:var(--soft);font-size:12.5px;line-height:1.4}
+
+  /* ---------- typography ---------- */
+  .eyebrow{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:12px;font-weight:700}
+  h1.title{font-size:clamp(30px,5vw,50px);line-height:1.1;margin:.1em 0 .4em;letter-spacing:-.02em}
+  h2{font-size:clamp(24px,3.4vw,34px);line-height:1.15;margin:.1em 0 .45em;letter-spacing:-.01em}
+  h3{font-size:clamp(20px,2.4vw,26px);line-height:1.22;margin:.1em 0 .5em;letter-spacing:-.01em}
+  p{color:var(--soft);margin:0 0 1em}
+  .lead{font-size:16px;color:var(--ink)}
+  strong{color:var(--ink)}
+
+  section{padding:30px 0}
+  section.first{padding-top:40px}
+  .topsec{border-bottom:1px solid var(--line);padding-bottom:46px}
+
+  /* feature video (centered) */
+  .feature video,.feature img{width:100%;border-radius:var(--radius);border:1px solid var(--line);background:#000}
+  .center{text-align:center}
+  figcaption{color:var(--muted);font-size:13.5px;margin-top:11px;font-style:italic}
+
+  /* ---------- STEP CARDS: image left, text right, each in a frame ---------- */
+  .step-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);
+    display:grid;grid-template-columns:0.78fr 1.22fr;gap:36px;padding:30px;align-items:start}
+  .step-card .body{order:1}      /* text left */
+  .step-card .media{order:2}     /* image right */
+  .step-card .media figure{margin:0 0 18px}
+  .step-card .media figure:last-child{margin-bottom:0}
+  /* screenshots: natural ratio, no black letterbox/frame */
+  .step-card .media img,.step-card .media video{display:block;width:auto;max-width:100%;max-height:560px;
+    margin:0 auto;border-radius:12px}
+  /* the "Thinking" panel: a touch smaller than the rest */
+  .step-card .media img.thinking{max-height:300px}
+
+  /* stacked step: each paragraph aligned to its own screenshot */
+  .step-card.s4{display:block}
+  .s4-head{display:grid;grid-template-columns:0.78fr 1.22fr;gap:0 36px;margin-bottom:6px}
+  .s4-head > *{grid-column:1}
+  .s4-row{display:grid;grid-template-columns:0.78fr 1.22fr;gap:36px;align-items:start;padding:24px 0;border-top:1px solid var(--line)}
+  .s4-row .body,.s4-row .media{align-self:start}
+  .s4-row .media figure{margin-top:0}
+  .s4-row .body > :first-child{margin-top:0}
+  .s4-head + .s4-row{border-top:none;padding-top:4px}
+  .step-card.s4 > .s4-row:first-child{border-top:none;padding-top:0}
+  .s4-row .note{margin-top:16px}
+  .step-card .media figcaption{text-align:center}
+  .step-card .body p:last-child{margin-bottom:0}
+
+  /* prompt box */
+  .prompt{background:var(--panel-2);border:1px solid var(--line);border-left:3px solid var(--accent);
+    border-radius:10px;padding:11px 13px;margin:16px 0 0}
+  .prompt .label{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .prompt pre{white-space:pre-wrap;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:10.5px;color:var(--soft);margin:0;line-height:1.5;max-height:150px;overflow:auto}
+  .copybtn{background:var(--panel);border:1px solid var(--line);color:var(--soft);font-size:10px;letter-spacing:.04em;padding:3px 8px;border-radius:6px;cursor:pointer;flex:none}
+  .copybtn:hover{color:var(--ink);border-color:var(--accent)}
+
+  /* callout */
+  .note{background:linear-gradient(180deg,rgba(0,240,192,.07),rgba(0,240,192,0));border:1px solid var(--line);
+    border-radius:12px;padding:12px 15px;margin:18px 0 0;font-size:13px}
+  .note b{color:var(--accent-2)}
+  .note .m{color:var(--accent);font-style:italic;font-weight:600}
+  .note a{color:var(--accent-2);white-space:nowrap}
+
+  /* inline CTAs */
+  .cta-link{display:inline-flex;align-items:center;gap:7px;color:var(--accent);font-weight:700;font-size:15px;margin-top:6px}
+  .cta-link:hover{text-decoration:none;filter:brightness(1.12)}
+  .cta-hint{display:block;color:var(--muted);font-size:12.5px;margin-top:3px}
+
+  /* hero CTA block (after first video) */
+  .cta-hero{background:linear-gradient(135deg,rgba(0,240,192,.12),rgba(0,240,192,.03));border:1px solid var(--line);border-radius:18px;padding:36px 30px;text-align:center;margin-top:30px}
+  .cta-hero .cta-eyebrow{display:block;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:12px}
+  .cta-hero .cta-h{font-size:clamp(21px,2.7vw,27px);line-height:1.2;margin:0 0 10px;color:var(--ink);letter-spacing:-.01em}
+  .cta-hero .cta-sub{color:var(--soft);font-size:15.5px;margin:0 auto 22px;max-width:540px}
+  .cta-hero .btn{font-size:16px;padding:14px 26px}
+  .cta-hero .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cta-tiles-label{margin-top:30px;color:var(--soft);font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:700}
+  .cta-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px;text-align:left}
+  .cta-tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+  .cta-tile .n{display:flex;align-items:center;gap:8px;color:var(--accent);font-size:14px;font-weight:700;margin-bottom:5px}
+  .cta-tile .n i{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--accent);font-style:normal;font-size:11px;display:flex;align-items:center;justify-content:center;flex:none}
+  .cta-tile span{color:var(--muted);font-size:13px;line-height:1.5;display:block}
+  @media(max-width:720px){.cta-tiles{grid-template-columns:1fr}.cta-tiles.four{grid-template-columns:repeat(2,1fr)}}
+
+  .idea-emphasis{font-size:16px;line-height:1.65;color:var(--ink);font-weight:700}
+
+  /* image lightbox */
+  .lb-zoom{cursor:zoom-in}
+  .lightbox{position:fixed;inset:0;z-index:200;background:rgba(2,4,2,.93);display:none;align-items:center;justify-content:center;padding:30px;cursor:zoom-out}
+  .lightbox.open{display:flex}
+  .lightbox img{max-width:95vw;max-height:92vh;width:auto;border-radius:10px;border:1px solid var(--line);box-shadow:0 24px 70px rgba(0,0,0,.6);cursor:default}
+  .lb-close{position:fixed;top:18px;right:22px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:24px;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .lb-close:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* TOC */
+  .steps-toc{display:flex;flex-direction:column;gap:8px;margin:14px 0 0;text-align:left}
+  .steps-toc a{display:flex;align-items:center;gap:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:9px 13px;color:var(--ink);font-size:13.5px;font-weight:600;transition:border-color .15s}
+  .steps-toc a:hover{border-color:var(--accent);text-decoration:none}
+  .steps-toc .num{flex:none;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;font-variant-numeric:tabular-nums}
+  .toc-acc{margin:0}
+  .toc-acc summary{display:flex;align-items:center;gap:12px;background:var(--panel-2);border:1px solid var(--line);border-radius:10px;padding:9px 13px;color:var(--ink);font-size:13.5px;font-weight:600;cursor:pointer;list-style:none;transition:border-color .15s}
+  .toc-acc summary::-webkit-details-marker{display:none}
+  .toc-acc summary:hover{border-color:var(--accent)}
+  .toc-acc summary .chev{margin-left:auto;color:var(--accent);font-size:16px;line-height:1;transition:transform .2s}
+  .toc-acc[open] summary .chev{transform:rotate(180deg)}
+  .toc-sub{display:flex;flex-direction:column;gap:4px;margin:7px 0 2px 14px;padding-left:14px;border-left:1px solid var(--line)}
+  .toc-sub a{font-size:12px;color:var(--muted);padding:5px 8px;border-radius:6px;font-weight:500;text-decoration:none;transition:.15s}
+  .toc-sub a:hover{color:var(--accent);background:var(--panel-2);text-decoration:none}
+
+  /* hero: idea text + steps panel side by side */
+  .hero{display:grid;grid-template-columns:1.05fr 0.95fr;gap:42px;align-items:start}
+  .toc-panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:26px 26px 28px}
+  .toc-panel .toc-h{font-size:17px;line-height:1.3;margin:.1em 0 0;letter-spacing:-.01em}
+
+  @media(max-width:860px){.hero{grid-template-columns:1fr;gap:26px}}
+
+  /* ---------- workflow gallery (wide band) ---------- */
+  .gallery-head{max-width:760px;margin:0 auto 38px;text-align:center}
+  .gallery-head h2{margin:.1em 0 .45em}
+  .gallery-head p{margin:0;font-size:16px}
+  .gallery{display:grid;gap:22px}
+  .ad-card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .ad-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .ad-head h3{margin:0;font-size:20px}
+  .ad-head .tag{font-size:12px;color:var(--muted);letter-spacing:.04em}
+  .flow{display:grid;grid-template-columns:repeat(3,1fr)}
+  .flow.two{grid-template-columns:repeat(2,1fr)}
+  .flow .cell{padding:18px;border-right:1px solid var(--line);position:relative}
+  .flow .cell:last-child{border-right:none}
+  .flow .cell .k{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:7px}
+  .flow .cell .k .dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .flow .cell img,.flow .cell video{border-radius:10px;border:1px solid var(--line);width:100%;height:200px;object-fit:contain;background:#070906}
+  .flow .cell p{font-size:13px;color:var(--muted);margin:10px 0 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .arrow{position:absolute;right:-11px;top:50%;transform:translateY(-50%);z-index:3;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--on-accent);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px}
+
+  /* CTA */
+  .cta{background:linear-gradient(135deg,rgba(0,240,192,.12),rgba(0,240,192,.04));border:1px solid var(--line);border-radius:var(--radius);padding:42px;text-align:center}
+  .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+  .btn{padding:13px 24px;border-radius:11px;font-weight:600;font-size:15px;display:inline-flex;align-items:center;justify-content:center;min-width:230px;text-align:center}
+  .btn.primary{background:var(--accent);color:var(--on-accent)}
+  .btn.primary:hover{text-decoration:none;filter:brightness(1.05)}
+  .btn.ghost{border:1px solid var(--line);color:var(--ink)}
+  .btn.ghost:hover{text-decoration:none;border-color:var(--accent)}
+  .btn small{display:block;font-weight:500;font-size:11px;opacity:.75;letter-spacing:.02em;margin-top:2px}
+
+  /* --- revision: inline green CTAs, hero reel, side-by-side videos, duo cards --- */
+  .inline-cta{display:inline-flex;align-items:center;gap:5px;background:var(--accent);color:var(--on-accent);font-weight:700;padding:2px 11px;border-radius:999px;font-size:.86em;line-height:1.35;white-space:nowrap;text-decoration:none}
+  .inline-cta:hover{text-decoration:none;filter:brightness(1.07)}
+  .hero-reel{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:6px}
+  .hero-reel .rv{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000;aspect-ratio:9/16}
+  .hero-reel .rv video{width:100%;height:100%;object-fit:cover;display:block}
+  .hero-reel .rv .lab{position:absolute;left:8px;bottom:8px;font-size:10.5px;letter-spacing:.04em;color:#eafff8;background:rgba(4,8,6,.6);backdrop-filter:blur(5px);border:1px solid rgba(255,255,255,.08);padding:4px 8px;border-radius:6px}
+  .vid-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:18px auto 0;max-width:760px}
+  .vid-row figure{margin:0}
+  .vid-row video{width:100%;height:auto;border-radius:12px;border:1px solid var(--line);background:#000;display:block}
+  .vid-row figcaption{text-align:center;color:var(--muted);font-size:13px;margin-top:9px;font-style:italic}
+  .gallery-duo{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .gallery-trio{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .ad-card.compact{max-width:780px;margin-left:auto;margin-right:auto}
+  .cta-tiles.four{grid-template-columns:repeat(4,1fr)}
+  .install{border:1px solid var(--line);border-radius:12px;background:#0b0f0a;overflow:hidden;margin:14px 0 0}
+  .install-top{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--line);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--soft);flex-wrap:wrap}
+  .install-top .ver{color:var(--muted);font-size:10px;border:1px solid var(--line);border-radius:999px;padding:3px 9px}
+  .install-row{display:grid;grid-template-columns:104px 1fr auto;gap:14px;align-items:center;padding:13px 16px;border-top:1px solid var(--line)}
+  .install-row.featured{background:rgba(0,240,192,.05)}
+  .install-row .ag{font-family:ui-monospace,Menlo,monospace;font-size:10px;letter-spacing:.08em;color:var(--accent);text-transform:uppercase}
+  .install-row .cmd{min-width:0}
+  .install-row .cmd code{display:block;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--ink);white-space:pre-wrap;word-break:break-word;line-height:1.5}
+  .install-row .cmd .sub{display:block;color:var(--muted);font-size:11px;margin-top:4px;font-family:ui-monospace,Menlo,monospace}
+  @media(max-width:560px){.install-row{grid-template-columns:1fr auto}.install-row .ag{grid-column:1/-1}}
+  @media(max-width:820px){.gallery-duo{grid-template-columns:1fr}.gallery-trio{grid-template-columns:1fr}.hero-reel{grid-template-columns:repeat(2,1fr)}.vid-row{grid-template-columns:1fr}}
+
+  /* keep-going workflow cards */
+  .next{border-top:1px solid var(--line);padding:46px 0 6px}
+  .next .intro{color:var(--soft);font-size:16px;margin:0 0 22px}
+  .next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .next-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px}
+  .next-card .plabel{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:7px 16px;font-size:12px;letter-spacing:.18em;color:var(--soft);text-transform:uppercase;margin-bottom:18px}
+  .next-card h4{margin:0 0 8px;font-size:19px}
+  .next-card h4 a{color:var(--accent)}
+  .next-card h4 a:hover{text-decoration:none;filter:brightness(1.1)}
+  .next-card p{font-size:14px;margin:0;color:var(--soft)}
+  .next-card p strong{color:var(--accent);font-weight:700}
+
+  /* footer (reference style) */
+  footer{border-top:1px solid var(--line);padding:30px 0 42px;color:var(--muted);font-size:13px;margin-top:36px}
+  footer .privacy{text-align:center;margin:0 0 30px}
+  footer .privacy a{color:var(--soft)}
+  footer .fbar{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  footer .wordmark{display:inline-flex;align-items:center}
+  footer .wordmark img{height:30px;width:auto;display:block}
+  footer .social{display:flex;align-items:center;gap:11px;flex-wrap:wrap}
+  footer .social a{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--muted)}
+  footer .social a:hover{color:var(--accent);border-color:var(--accent);text-decoration:none}
+  footer .social svg{width:16px;height:16px;fill:currentColor;display:block}
+
+  @media (max-width:820px){
+    .idea-emphasis{font-size:16px}
+    .step-card{grid-template-columns:1fr;gap:18px;padding:20px}
+    .s4-row{grid-template-columns:1fr;gap:16px;padding:18px 0}
+    .s4-head{grid-template-columns:1fr}
+    .gallery-head{grid-template-columns:1fr;gap:14px;align-items:start}
+    .flow,.flow.two{grid-template-columns:1fr}
+    .flow .cell{border-right:none;border-bottom:1px solid var(--line)}
+    .flow .cell:last-child{border-bottom:none}
+    .arrow{display:none}
+  }
+</style>
+<link rel="stylesheet" href="https://blog.sogni.ai/assets/persistent-nav.css?v=navunify2">
+<script src="https://blog.sogni.ai/assets/persistent-nav.js?v=thumbs2027" defer></script>
+  <script src="https://blog.sogni.ai/assets/persistent-footer.js?v=foot2" defer></script>
+</head>
+<body data-bn-current="blog-ugc-without-the-creators">
+
+<!-- HEADER -->
+<div class="bn-header">
+  <div class="bn-header-inner">
+    <a class="bn-brand" href="https://blog.sogni.ai/">
+      <svg class="bn-brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 387 160" aria-hidden="true"><path fill="currentColor" d="M17.2,106.99c5.33,2.29,11.3,3.41,17.95,3.41,7.03,0,13.11-1.33,18.23-3.98,5.23-2.75,9.17-6.34,11.82-10.81,2.76-4.44,4.12-9.19,4.12-14.2,0-6.24-1.47-11.22-4.43-14.92-2.86-3.8-6.36-6.57-10.53-8.37-4.09-1.8-9.4-3.59-15.96-5.39-4.94-1.34-8.83-2.57-11.69-3.7-2.86-1.13-5.23-2.64-7.13-4.54-1.8-1.98-2.7-4.49-2.7-7.52,0-4.44,1.47-7.86,4.4-10.22,2.94-2.36,6.75-3.54,11.41-3.54,5.12,0,9.27,1.28,12.39,3.83,3.14,2.57,4.84,5.62,5.12,9.24h17.95c-.67-8.34-4.09-14.87-10.25-19.62-6.08-4.83-13.9-7.24-23.51-7.24-6.75,0-12.67,1.13-17.82,3.41-5.12,2.29-9.11,5.55-11.97,9.81C1.73,26.91.31,31.89.31,37.56c0,6.16,1.42,11.09,4.27,14.76,2.86,3.7,6.28,6.44,10.25,8.24,4.09,1.69,9.35,3.42,15.81,5.11,5.12,1.34,9.11,2.57,11.97,3.7,2.94,1.13,5.36,2.75,7.26,4.83,1.98,2.08,2.99,4.78,2.99,8.09,0,4.26-1.57,7.75-4.71,10.5-3.14,2.64-7.49,3.98-13.11,3.98s-9.63-1.36-12.67-4.11c-2.94-2.75-4.61-6.24-5-10.5H0c0,5.67,1.52,10.66,4.56,14.92,3.04,4.26,7.21,7.57,12.54,9.94l.1-.03ZM102.48,105.71c5.97,3.31,12.67,4.98,20.08,4.98s14.34-1.67,20.52-4.98c6.28-3.42,11.2-8.19,14.83-14.35,3.6-6.16,5.41-13.22,5.41-21.16s-1.75-15.02-5.28-21.16c-3.53-6.14-8.32-10.89-14.39-14.2-6.08-3.31-12.87-4.98-20.37-4.98s-14.29,1.67-20.37,4.98c-6.08,3.31-10.87,8.06-14.39,14.2-3.53,6.16-5.28,13.22-5.28,21.16s1.7,15.15,5.12,21.31c3.42,6.06,8.11,10.81,14.11,14.2ZM134.25,93.64c-3.61,1.98-7.49,2.98-11.69,2.98-6.54,0-12.03-2.29-16.38-6.83-4.27-4.65-6.41-11.17-6.41-19.62,0-5.67,1.06-10.48,3.14-14.35,2.08-3.98,4.89-6.96,8.39-8.96,3.61-1.98,7.49-2.98,11.69-2.98s8.08,1,11.69,2.98c3.6,1.98,6.51,4.98,8.7,8.96,2.19,3.88,3.27,8.68,3.27,14.35s-1.13,10.5-3.42,14.48c-2.29,3.98-5.28,6.96-8.99,8.96v.03ZM227.1,33.53c-4.66-2.46-10.02-3.7-16.09-3.7-6.85,0-13.11,1.69-18.8,5.11-5.61,3.31-10.07,8.01-13.39,14.07-3.22,6.06-4.84,13.02-4.84,20.88s1.62,14.92,4.84,21.16c3.32,6.16,7.78,10.99,13.39,14.48,5.69,3.42,11.97,5.11,18.8,5.11,5.97,0,11.3-1.23,15.96-3.7,4.74-2.57,8.5-5.67,11.25-9.37v13.07c0,7.57-2.03,13.35-6.13,17.33-3.99,3.98-9.27,5.96-15.81,5.96-5.61,0-10.45-1.28-14.52-3.83-3.99-2.46-6.59-5.72-7.83-9.81h-16.09c.95,8.53,4.94,15.25,11.97,20.18,7.03,5.03,15.86,7.52,26.5,7.52,7.98,0,14.81-1.62,20.52-4.83,5.79-3.21,10.22-7.68,13.26-13.35,3.04-5.6,4.56-11.99,4.56-19.18V31.07h-16.38v11.37c-2.65-3.59-6.36-6.57-11.12-8.96l-.05.05ZM234.8,56.13c2.29,3.98,3.42,8.68,3.42,14.07s-1.13,10.14-3.42,14.2c-2.19,3.98-5.07,7.01-8.7,9.09-3.61,2.08-7.49,3.13-11.69,3.13s-7.98-1.05-11.69-3.13c-3.6-2.18-6.57-5.32-8.83-9.37-2.19-4.08-3.27-8.81-3.27-14.2s1.08-10.04,3.27-13.92c2.29-3.98,5.23-6.96,8.83-8.96,3.6-2.08,7.49-3.13,11.69-3.13s8.08,1.05,11.69,3.13c3.6,2.08,6.51,5.11,8.7,9.09ZM332.08,33.69c-4.84-2.57-10.35-3.83-16.53-3.83-4.66,0-9.06.9-13.26,2.7-4.09,1.8-7.47,4.31-10.12,7.52v-8.96h-16.25v78.29h16.25v-43.75c0-7.01,1.75-12.35,5.28-16.05,3.61-3.8,8.45-5.67,14.52-5.67s10.87,1.9,14.39,5.67c3.5,3.7,5.28,9.04,5.28,16.05v43.75h16.09v-46.17c0-7.11-1.37-13.17-4.12-18.18-2.76-5.03-6.59-8.81-11.54-11.37ZM369.34,17.77c1.98,1.98,4.45,2.98,7.42,2.98s5.28-1,7.26-2.98c1.98-1.98,2.99-4.44,2.99-7.39s-1-5.39-2.99-7.39c-1.98-1.98-4.43-2.98-7.26-2.98s-5.41,1-7.42,2.98c-1.98,1.98-2.99,4.44-2.99,7.39s1,5.39,2.99,7.39ZM384.71,109.41V31.12h-16.25v78.29h16.25Z"/></svg>
+      <span class="bn-brand-divider">/</span>
+      <span class="bn-brand-sub">Blogs &amp; Newsletters</span>
+    </a>
+    <nav class="bn-nav" aria-label="Blogs and newsletters">
+      <div class="bn-menu" data-bn-menu>
+        <button class="bn-trigger" type="button" aria-expanded="false">
+          <span>Blogs</span>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><polyline points="6 9 12 15 18 9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+        </button>
+        <div class="bn-dropdown">
+          <a class="bn-drop-link" data-bn-page="blog-ugc-without-the-creators" href="https://natalieart.github.io/blog-ugc-without-the-creators/">
+            <span class="bn-drop-title">UGC Without the Creators</span>
+            <span class="bn-drop-meta">Blog &middot; UGC</span>
+          </a>
+          <a class="bn-drop-link" data-bn-page="blog-storyboards-to-ad" href="https://blog.sogni.ai/blogs/storyboards-to-ad/">
+            <span class="bn-drop-title">How to Turn a Product Photo into a Video Ad with AI</span>
+            <span class="bn-drop-meta">Blog &middot; Video Ads</span>
+          </a>
+          <a class="bn-drop-link" data-bn-page="blog-storyboards-that-move" href="https://blog.sogni.ai/blogs/storyboards-that-move/">
+            <span class="bn-drop-title">Storyboards that move: from one prompt to a finished video</span>
+            <span class="bn-drop-meta">Blog &middot; Storyboards</span>
+          </a>
+          <a class="bn-drop-link" data-bn-page="blog-personas" href="https://blog.sogni.ai/blogs/personas/">
+            <span class="bn-drop-title">Meet your Personas: your face in every render</span>
+            <span class="bn-drop-meta">Blog &middot; Personas</span>
+          </a>
+          <a class="bn-drop-link" data-bn-page="blog-architectural-renders" href="https://blog.sogni.ai/blogs/architectural-renders/">
+            <span class="bn-drop-title">Why You No Longer Need to Outsource Your Architectural Renders</span>
+            <span class="bn-drop-meta">Blog &middot; Architecture</span>
+          </a>
+          <a class="bn-drop-link" data-bn-page="blog-creative-assistant" href="https://blog.sogni.ai/blogs/creative-assistant/">
+            <span class="bn-drop-title">Meet the New Creative Assistant in Sogni Studio / Pro</span>
+            <span class="bn-drop-meta">Blog &middot; AI Workflows</span>
+          </a>
+          <a class="bn-drop-link" data-bn-page="blog-starting-ending-frames" href="https://blog.sogni.ai/blogs/starting-ending-frames/">
+            <span class="bn-drop-title">Starting &amp; Ending Frames</span>
+            <span class="bn-drop-meta">Blog &middot; Video &amp; Motion</span>
+          </a>
+        </div>
+      </div>
+      <div class="bn-menu" data-bn-menu>
+        <button class="bn-trigger" type="button" aria-expanded="false">
+          <span>Newsletters</span>
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><polyline points="6 9 12 15 18 9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline></svg>
+        </button>
+        <div class="bn-dropdown">
+          <a class="bn-drop-link" data-bn-page="newsletter-20" href="https://blog.sogni.ai/newsletters/20/">
+            <span class="bn-drop-title">Creativity enters the agentic era</span>
+            <span class="bn-drop-meta">Newsletter &middot; Volume 20</span>
+          </a>
+          <a class="bn-drop-link" data-bn-page="newsletter-19" href="https://blog.sogni.ai/newsletters/19/">
+            <span class="bn-drop-title">Season 6 is live</span>
+            <span class="bn-drop-meta">Newsletter &middot; Volume 19</span>
+          </a>
+          <a class="bn-drop-link" data-bn-page="newsletter-18" href="https://blog.sogni.ai/newsletters/18/">
+            <span class="bn-drop-title">2025: The Year Sogni Came Alive</span>
+            <span class="bn-drop-meta">Newsletter &middot; Volume 18</span>
+          </a>
+        </div>
+      </div>
+      <a class="bn-home" href="https://blog.sogni.ai/">Back to main page</a>
+      <a class="bn-subscribe" href="https://www.sogni.ai/#wf-form-Marketing-Email-Signup" target="_blank" rel="noopener">Subscribe</a>
+    </nav>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div class="band banner">
+  <img src="assets/banner.jpg" alt="UGC without the creators - AI-generated influencers advertising EDGE fragrance, LUMINA skincare and activewear, all made with Sogni.">
+</div>
+
+<!-- MODEL PILLS -->
+<div class="pills">
+  <div class="pill"><b>Sogni Skill &middot; sogni.ai/agent</b><span>One photo, a whole campaign - 10 stills at once.</span></div>
+  <div class="pill"><b>chat.sogni.ai</b><span>Brief, storyboard, render - all in one conversation.</span></div>
+  <div class="pill"><b>Seedance 2.0 &middot; native audio</b><span>AI creators that move and talk, product locked.</span></div>
+</div>
+
+<!-- SEE THE RESULT -->
+<section class="first topsec">
+  <div class="col center">
+    <span class="eyebrow">See the result first</span>
+    <h2>UGC that looks like a real creator filmed it - with no creator.</h2>
+    <p>No casting, no shipping samples, no week of reshoots. Drop in a product photo, describe the spot, and walk out with an influencer-style video, voice-over and all.</p>
+    <div class="hero-reel">
+      <div class="rv"><span class="lab">Activewear</span><video autoplay muted loop controls playsinline preload="auto" poster="assets/activewear-vertical-poster.jpg"><source src="assets/activewear-vertical.mp4" type="video/mp4"></video></div>
+      <div class="rv"><span class="lab">LUMINA skincare</span><video autoplay muted loop controls playsinline preload="auto" poster="assets/lumina-vertical-poster.jpg"><source src="assets/lumina-vertical.mp4" type="video/mp4"></video></div>
+      <div class="rv"><span class="lab">LUMI shampoo</span><video autoplay muted loop controls playsinline preload="auto" poster="assets/lumi-portrait-poster.jpg"><source src="assets/lumi-portrait.mp4" type="video/mp4"></video></div>
+      <div class="rv"><span class="lab">EDGE fragrance</span><video autoplay muted loop controls playsinline preload="auto" poster="assets/edge-ugc-1-poster.jpg"><source src="assets/edge-ugc-1.mp4" type="video/mp4"></video></div>
+    </div>
+    <figcaption style="text-align:center">Four products, four "creators," none of them real - each made from a single product photo. Unmute any clip for sound.</figcaption>
+    <div class="cta-hero">
+      <span class="cta-eyebrow">Try it now</span>
+      <h3 class="cta-h">Make your first UGC ad in one chat - or one line.</h3>
+      <p class="cta-sub">Drop in a photo of your own product and walk away with a finished influencer video. Run it as a guided conversation, or fire it off from your terminal.</p>
+      <div class="btns">
+        <a class="btn primary" href="https://chat.sogni.ai/" target="_blank" rel="noopener">Open Sogni Chat</a>
+        <a class="btn ghost" href="https://sogni.ai/agent" target="_blank" rel="noopener">Get the Sogni Skill</a>
+      </div>
+      <div class="cta-tiles-label">What's happening behind the scenes</div>
+      <div class="cta-tiles">
+        <div class="cta-tile"><span class="n"><i>1</i> Image model</span><span>Builds the cinematic storyboard from your photo.</span></div>
+        <div class="cta-tile"><span class="n"><i>2</i> Video model</span><span>Animates the sheet into the finished spot, with audio.</span></div>
+        <div class="cta-tile"><span class="n"><i>3</i> Spark credits</span><span>Meter each render - you approve the cost before it runs.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THE IDEA + WHAT YOU'LL DO -->
+<section class="topsec">
+  <div class="band">
+    <div class="hero">
+      <div class="hero-text">
+        <span class="eyebrow">The idea</span>
+        <h1 class="title">UGC without the creators.</h1>
+        <p class="lead">User-generated content used to mean people - finding creators, negotiating rates, shipping product and waiting for footage. Sogni collapses the whole thing into one move: a product photo in, finished influencer videos out.</p>
+        <p class="idea-emphasis">For a small brand the bottleneck was never the idea - it was the production. A product photo is easy. A week of UGC from real creators is not. Sogni puts that whole chain into a single conversation - or a single command.</p>
+        <p>You drop in a reference image - a fragrance, a shampoo, a serum - or just describe it. The agent treats the product as the <strong>anchor</strong> and generates the creator and the scene around it. Then <strong>Seedance 2.0</strong> animates it into a finished social video, native audio included. One detail worth knowing up front: Seedance won't clone a real person's face, so every creator is generated and unique - UGC energy with none of the likeness headaches.</p>
+        <p>There are two ways to drive it: <a class="inline-cta" href="https://chat.sogni.ai/" target="_blank" rel="noopener">Open Sogni Chat ↗</a> for a guided conversation in your browser, or <a class="inline-cta" href="https://sogni.ai/agent" target="_blank" rel="noopener">Get the Sogni Skill ↗</a> to run the same engine inside your own agent - Claude Code, Codex or Hermes - handy when you want to fire off <strong>ten campaign stills in one batch</strong>.</p>
+      </div>
+      <aside class="toc-panel">
+        <span class="eyebrow">What you'll do</span>
+        <h2 class="toc-h">From one product photo to a week of UGC.</h2>
+        <div class="steps-toc">
+          <a href="#s1"><span class="num">01</span> Start from your product photo</a>
+          <a href="#s2"><span class="num">02</span> Install the Skill</a>
+          <a href="#s3"><span class="num">03</span> Generate ten shots at once</a>
+          <a href="#s4"><span class="num">04</span> Turn them into videos</a>
+          <details class="toc-acc">
+            <summary><span class="num">05</span> Way 1 - the storyboard route<span class="chev">▾</span></summary>
+            <div class="toc-sub">
+              <a href="#s5-brief">the brief</a>
+              <a href="#s5-plan">the plan</a>
+              <a href="#s5-delivered">delivered</a>
+              <a href="#s5-board">the storyboard</a>
+              <a href="#s5-final">the final spot</a>
+            </div>
+          </details>
+          <a href="#s6"><span class="num">06</span> Way 2 - the one-line route</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- WORKFLOW GALLERY (wide) -->
+<section class="topsec">
+  <div class="band">
+    <div class="gallery-head">
+      <span class="eyebrow">One workflow, any product</span>
+      <h2>Reference photo &rarr; AI creator &rarr; video.<br>Every time.</h2>
+      <p>The same flow works for any category: start from a real product photo, let Sogni build the creator and the scene, then render with Seedance 2.0. The whole workflow is in the examples below.</p>
+    </div>
+
+    <div class="gallery">
+
+      <!-- LUMI -->
+      <div class="ad-card">
+        <div class="ad-head"><h3>LUMI shampoo</h3><span class="tag">16:9 &middot; 15s</span></div>
+        <div class="flow">
+          <div class="cell">
+            <div class="k"><span class="dot"></span>1 &middot; Reference photo</div>
+            <img src="assets/lumi-shampoo-new.jpg" loading="lazy" decoding="async" alt="Reference photo: the LUMI shampoo bottle">
+            <p>One product photo anchors it all.</p>
+            <div class="arrow">&rarr;</div>
+          </div>
+          <div class="cell">
+            <div class="k"><span class="dot"></span>2 &middot; Storyboard</div>
+            <img src="assets/lumi-storyboard.jpg" loading="lazy" decoding="async" alt="LUMI 9-panel storyboard sheet, 16:9, 15 seconds">
+            <p>A 9-panel storyboard sheet.</p>
+            <div class="arrow">&rarr;</div>
+          </div>
+          <div class="cell">
+            <div class="k"><span class="dot"></span>3 &middot; Video</div>
+            <video data-src="assets/lumi-landscape.mp4" data-poster="assets/lumi-landscape-poster.jpg" autoplay muted loop controls playsinline preload="none"></video>
+            <p>A glossy 15-second beauty ad.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MOVE IN STYLE (pink bottle persona) -->
+      <div class="ad-card">
+        <div class="ad-head"><h3>MOVE IN STYLE bottle</h3><span class="tag">Persona &middot; 15s</span></div>
+        <div class="flow">
+          <div class="cell">
+            <div class="k"><span class="dot"></span>1 &middot; Character board</div>
+            <img src="assets/influencer-character.jpg" loading="lazy" decoding="async" alt="Character board for the MOVE IN STYLE sporty-luxury influencer - face, hair and wardrobe">
+            <p>A reusable creator persona.</p>
+            <div class="arrow">&rarr;</div>
+          </div>
+          <div class="cell">
+            <div class="k"><span class="dot"></span>2 &middot; Storyboard</div>
+            <img src="assets/influencer-storyboard.jpg" loading="lazy" decoding="async" alt="Unboxing storyboard for the pink training bottle - entrance, reveal, sip, lifestyle">
+            <p>An unboxing storyboard.</p>
+            <div class="arrow">&rarr;</div>
+          </div>
+          <div class="cell">
+            <div class="k"><span class="dot"></span>3 &middot; Video</div>
+            <video data-src="assets/influencer-video.mp4" data-poster="assets/influencer-video-poster.jpg" autoplay muted loop controls playsinline preload="none"></video>
+            <p>The persona shows it on camera.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDGE -->
+      <div class="ad-card">
+        <div class="ad-head"><h3>EDGE fragrance</h3><span class="tag">9:16 &middot; 15s</span></div>
+        <div class="flow">
+          <div class="cell">
+            <div class="k"><span class="dot"></span>1 &middot; Reference photo</div>
+            <img src="assets/edge-start.jpg" loading="lazy" decoding="async" alt="Reference photo: a hand holding the black EDGE fragrance bottle">
+            <p>One phone shot of the bottle.</p>
+            <div class="arrow">&rarr;</div>
+          </div>
+          <div class="cell">
+            <div class="k"><span class="dot"></span>2 &middot; Product session</div>
+            <img src="assets/edge-campaign-sheet.jpg" loading="lazy" decoding="async" alt="A full product session generated from one EDGE bottle photo - many creators and product shots">
+            <p>A whole shoot from one photo.</p>
+            <div class="arrow">&rarr;</div>
+          </div>
+          <div class="cell">
+            <div class="k"><span class="dot"></span>3 &middot; Video</div>
+            <video data-src="assets/edge-ugc-1.mp4" data-poster="assets/edge-ugc-1-poster.jpg" autoplay muted loop controls playsinline preload="none"></video>
+            <p>A vertical UGC spot.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="gallery-duo">
+      <!-- LUMINA -->
+      <div class="ad-card">
+        <div class="ad-head"><h3>LUMINA serum</h3><span class="tag">1:1 &middot; 15s</span></div>
+        <div class="flow two">
+          <div class="cell">
+            <div class="k"><span class="dot"></span>1 &middot; Reference photo</div>
+            <img src="assets/lumina-product.jpg" loading="lazy" decoding="async" alt="Reference photo: a hand holding the LUMINA serum dropper bottle">
+            <p>The serum bottle in hand.</p>
+            <div class="arrow">&rarr;</div>
+          </div>
+          <div class="cell">
+            <div class="k"><span class="dot"></span>2 &middot; Video</div>
+            <video data-src="assets/lumina-video.mp4" data-poster="assets/lumina-video-poster.jpg" autoplay muted loop controls playsinline preload="none"></video>
+            <p>A close-up application demo.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ACTIVEWEAR -->
+      <div class="ad-card">
+        <div class="ad-head"><h3>Activewear set</h3><span class="tag">1:1 &middot; 15s</span></div>
+        <div class="flow two">
+          <div class="cell">
+            <div class="k"><span class="dot"></span>1 &middot; Reference photo</div>
+            <img src="assets/activewear-set.jpg" loading="lazy" decoding="async" alt="Reference photo: an orange activewear set on a wooden floor">
+            <p>A flat-lay of the set.</p>
+            <div class="arrow">&rarr;</div>
+          </div>
+          <div class="cell">
+            <div class="k"><span class="dot"></span>2 &middot; Video</div>
+            <video data-src="assets/activewear-cropped.mp4" data-poster="assets/activewear-cropped-poster.jpg" autoplay muted loop controls playsinline preload="none"></video>
+            <p>A sunlit outdoor reel.</p>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STEP 01 -->
+<section id="s1">
+  <div class="stepwrap">
+    <div class="step-card">
+      <div class="media">
+        <figure>
+          <img src="assets/edge-start.jpg" loading="lazy" decoding="async" alt="The EDGE start image: a hand holding the black EDGE fragrance bottle">
+          <figcaption>Start by dragging any product photo in - even an unedited phone shot.</figcaption>
+        </figure>
+      </div>
+      <div class="body">
+        <span class="eyebrow">Step 01 &middot; The start image</span>
+        <h3>An imperfect photo of your product - that's the only input you need.</h3>
+        <p>Start with what you already have. Here it's one snapshot of the <strong>EDGE</strong> bottle in hand - black glass, the wordmark on the front. No studio, no lightbox.</p>
+        <p>From this moment the image is the <strong>product anchor</strong>: it keeps the bottle's shape, glass, label and logo placement consistent across every still and every video the agent makes next.</p>
+        <p>It works for any category, from a fragrance to a gadget to a garment, and the photo doesn't even need to be perfect. The agent only needs to recognise the product, not copy your lighting, so a quick phone shot is plenty.</p>
+        <div class="note"><b>No product yet?</b> You can describe it instead - the agent can invent the bottle, the brand and the world from words alone. A reference photo just makes brand consistency effortless.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 02 -->
+<section id="s2">
+  <div class="stepwrap">
+    <div class="step-card">
+      <div class="media">
+        <div class="install">
+          <div class="install-top"><span>install — sogni creative agent skill</span><span class="ver">latest 3.6.1 &middot; MIT &middot; node &ge; 22.11</span></div>
+          <div class="install-row featured">
+            <div class="ag">Fastest</div>
+            <div class="cmd"><code id="i-fast">npx setup-sogni-agent-skill</code><span class="sub">auto-detects Claude Code, Codex CLI &amp; Hermes &middot; installs CLI + skill</span></div>
+            <button class="copybtn" data-copy="i-fast">Copy</button>
+          </div>
+          <div class="install-row">
+            <div class="ag">Claude Code</div>
+            <div class="cmd"><code id="i-cc">/plugin marketplace add Sogni-AI/sogni-creative-agent-skill
+/plugin install sogni-creative-agent@sogni</code><span class="sub">run inside Claude Code</span></div>
+            <button class="copybtn" data-copy="i-cc">Copy</button>
+          </div>
+          <div class="install-row">
+            <div class="ag">Codex CLI</div>
+            <div class="cmd"><code id="i-cx">npm install -g @sogni-ai/sogni-creative-agent-skill@latest
+npx setup-sogni-agent-skill --only=codex</code><span class="sub">restart Codex after install</span></div>
+            <button class="copybtn" data-copy="i-cx">Copy</button>
+          </div>
+          <div class="install-row">
+            <div class="ag">Hermes</div>
+            <div class="cmd"><code id="i-hr">npm install -g @sogni-ai/sogni-creative-agent-skill@latest
+npx setup-sogni-agent-skill --only=hermes</code><span class="sub">then run /reset in Hermes</span></div>
+            <button class="copybtn" data-copy="i-hr">Copy</button>
+          </div>
+          <div class="install-row">
+            <div class="ag">Verify</div>
+            <div class="cmd"><code id="i-vf">sogni-agent doctor</code><span class="sub">confirms the CLI + skill are wired up</span></div>
+            <button class="copybtn" data-copy="i-vf">Copy</button>
+          </div>
+        </div>
+      </div>
+      <div class="body">
+        <span class="eyebrow">Step 02 &middot; Install the Skill in your agent</span>
+        <h3>Put Sogni inside Claude Code, Codex CLI or Hermes.</h3>
+        <p>The <strong>Sogni Creative Agent Skill</strong> installs in one command - it adds the CLI and the skill and prompts for your API key (grab it from dashboard.sogni.ai). Pick your runtime on the right and copy the command.</p>
+        <p>The fastest path auto-detects Claude Code, Codex CLI and Hermes in one go. Prefer no install at all? Everything here also runs in <a href="https://chat.sogni.ai/" target="_blank" rel="noopener">chat.sogni.ai</a> - just a browser tab.</p>
+        <span class="cta-hint">All install options live at <a href="https://sogni.ai/agent" target="_blank" rel="noopener">sogni.ai/agent</a>.</span>
+        <p>With the skill loaded, drop in your product photo and describe the spot in plain language - the agent plans it, estimates the cost in Spark, and routes the job to Seedance 2.0. We'll do exactly that next.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 03 -->
+<section id="s3">
+  <div class="stepwrap">
+    <div class="step-card s4">
+      <div class="s4-row">
+        <div class="body">
+          <span class="eyebrow">Step 03 &middot; Ten shots at once</span>
+          <h3>One batch command. A full still campaign.</h3>
+          <p>This is where the Skill earns its keep. Ask for a batch and it generates <strong>10 stills at a time</strong> - a different creator and location in each, every aspect ratio you'll need, plus clean product-only shots. Same bottle, same label, every frame.</p>
+          <div class="prompt">
+            <div class="label"><span>Prompt &middot; EDGE campaign batch</span><button class="copybtn" data-copy="edge-batch">Copy</button></div>
+<pre id="edge-batch">Generate 10 different photos. Different ratios. Use the EXACT same perfume bottle from the reference image, product clearly visible, realistic hands, photorealistic, premium fragrance campaign, UGC advertising content, social media presence, natural expression, shallow depth of field, 4K. Generate and save all images in the folder "Sogni Generations".
+
+1. Handsome dark-haired businessman, 36, tailored navy suit, luxury rooftop in Manhattan at sunset, confidently holding the perfume bottle, authentic UGC luxury fragrance advertisement.
+2. Blonde Scandinavian male influencer, minimalist modern apartment with natural sunlight, holding the perfume bottle while speaking to camera, clean luxury aesthetic.
+3. Athletic fitness influencer, luxury gym locker room, post-workout atmosphere, holding the perfume bottle naturally, masculine confidence.
+4. Mediterranean man with olive skin, white linen shirt, Amalfi Coast terrace overlooking the sea, holding the perfume bottle, luxury travel lifestyle, golden sunlight.
+5. Stylish tattooed male creator, trendy industrial loft, fashionable streetwear, holding the perfume bottle casually, edgy masculine vibe.
+6. Successful Asian entrepreneur, smart casual outfit, Tokyo skyline at night, city lights behind, holding the perfume bottle confidently.
+7. Surfer-type influencer, sandy beach at golden hour, relaxed white shirt, holding the perfume bottle while smiling naturally, fresh summer lifestyle.
+8. Sophisticated silver-haired gentleman, luxury hotel lobby, elegant black turtleneck, holding the perfume bottle, refined masculine elegance.
+9. Creative artist with curly hair, modern art studio filled with paintings, holding the perfume bottle naturally, artistic luxury lifestyle.
+10. Rugged bearded adventurer, mountain viewpoint at sunrise, outdoor jacket, holding the perfume bottle proudly, adventure-inspired luxury fragrance UGC.</pre>
+          </div>
+        </div>
+        <div class="media">
+          <figure>
+            <img src="assets/edge-campaign-sheet.jpg" loading="lazy" decoding="async" alt="A contact sheet of the EDGE campaign: dozens of stills of generated creators and product shots, all with the same bottle">
+            <figcaption>From one bottle photo - generated creators and clean product shots, every aspect ratio, the EDGE label identical throughout.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 04 -->
+<section id="s4">
+  <div class="stepwrap">
+    <div class="step-card s4">
+      <div class="s4-row">
+        <div class="body">
+          <span class="eyebrow">Step 04 &middot; The influencer cuts</span>
+          <h3>Now the video. Seedance does the acting.</h3>
+          <p>Same skill, now for motion. Hand it the bottle photo and a UGC brief - who's holding it, where, which aspect ratio - and Seedance 2.0 generates the creator and the movement, native audio and all.</p>
+          <p>You don't have to over-specify. Name the creator, the setting and the format, and the agent fills in the rest: pacing, framing, lighting, even the voice-over script. Want a different take? Ask for a new creator, a calmer delivery or a tighter crop, and only that part changes while the bottle stays locked frame to frame. Prefer a different engine? Swap Seedance 2.0 for LTX 2.3 in the same sentence.</p>
+          <div class="prompt">
+            <div class="label"><span>Prompt &middot; EDGE UGC video</span><button class="copybtn" data-copy="edge-video">Copy</button></div>
+<pre id="edge-video">Use Sogni Skill. Use Seedance 2.0. Reference image: the EDGE bottle photo. UGC content type.
+
+A young, handsome, French-looking man, around 25-30, is showing off the fragrance in his own bedroom - nothing styled or staged. Aspect ratio 9:16.
+
+Highly realistic: natural skin texture, well-built physique, candid handheld movement, premium lighting, sharp focus.
+
+Product consistency is critical: the EDGE bottle must stay identical in every shot - same packaging, label, text, logo placement, colours and proportions across all scenes.</pre>
+          </div>
+        </div>
+        <div class="media">
+          <div class="prompt">
+            <div class="label"><span>Terminal &middot; install the skill first</span><button class="copybtn" data-copy="cmd-s4">Copy</button></div>
+<pre id="cmd-s4">npx setup-sogni-agent-skill</pre>
+          </div>
+          <figure>
+            <img src="assets/edge-terminal.jpg" loading="lazy" decoding="async" alt="The EDGE UGC video brief running in the Sogni Skill terminal">
+            <figcaption>The video brief, handed to the Skill in the terminal.</figcaption>
+          </figure>
+          <figure style="margin:12px 0 0">
+            <img src="assets/edge-batch-done.jpg" loading="lazy" decoding="async" alt="Terminal output: all ten EDGE campaign stills generated and saved in one run" style="width:100%;border-radius:12px;border:1px solid var(--line)">
+            <figcaption>All ten generated and saved in a single run.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="s4-row" style="display:block">
+        <div style="max-width:760px;margin:0 auto">
+        <p style="text-align:center">From here it's all variations. Keep the same creator and drop them into a fresh scene, or spin up a brand-new one - a different guy, or a female creator entirely. You choose how they sound, too: a voice-over narrating over the shot, or the creator talking straight to camera. Three cuts here, each a different person, the bottle byte-for-byte the same.</p>
+        <div class="vid-row">
+          <figure>
+            <video data-src="assets/edge-ugc-1.mp4" data-poster="assets/edge-ugc-1-poster.jpg" autoplay muted loop controls playsinline preload="none"></video>
+            <figcaption>UGC cut 1</figcaption>
+          </figure>
+          <figure>
+            <video data-src="assets/edge-ugc-2.mp4" data-poster="assets/edge-ugc-2-poster.jpg" autoplay muted loop controls playsinline preload="none"></video>
+            <figcaption>UGC cut 2</figcaption>
+          </figure>
+          <figure>
+            <video data-src="assets/edge-ugc-3.mp4" data-poster="assets/edge-ugc-3-poster.jpg" autoplay muted loop controls playsinline preload="none"></video>
+            <figcaption>UGC cut 3</figcaption>
+          </figure>
+        </div>
+        <p style="margin-top:24px;text-align:center">Finish the set with a clean product film - the same bottle, no creator, just the hero shot for the top of the feed or an end card. One photo has now produced a campaign of stills and a stack of videos.</p>
+        <figure style="margin:14px auto 0">
+          <video data-src="assets/edge-product.mp4" data-poster="assets/edge-product-poster.jpg" autoplay muted loop controls playsinline preload="none" style="width:100%;border-radius:12px;border:1px solid var(--line);background:#000"></video>
+          <figcaption style="text-align:center">The product film - export straight to MP4, audio included.</figcaption>
+        </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 05 -->
+<section id="s5">
+  <div class="stepwrap">
+    <div class="step-card s4">
+      <div class="s4-row">
+        <div class="body">
+          <span class="eyebrow">Step 05 &middot; Way 1 &middot; the storyboard route &middot; chat.sogni.ai</span>
+          <h3>Two ways to make this ad. We start in the chat.</h3>
+          <p>There are two ways to build the LUMI spot - and they share one trick. Seedance 2.0 won't take a real person's face, so instead of fighting it you <strong>anchor your real product</strong> and let the model generate the creator around it. We start in <strong>chat.sogni.ai</strong> with the shampoo bottle as the reference.</p>
+          <p>Strengthen the prompt while you're at it: spell out that the <strong>logo, the captions at the bottom and any other details must stay identical</strong> across the whole video, so nothing drifts between shots.</p>
+          <div class="note"><b>Why this matters.</b> The product is what your audience recognises - so that's what we lock. The face is generated fresh, which keeps you clear of likeness and release-form issues entirely.</div>
+        </div>
+        <div class="media">
+          <figure>
+            <img src="assets/lumi-shampoo-new.jpg" loading="lazy" decoding="async" alt="The LUMI shampoo bottle as the product reference">
+            <figcaption>One product reference - the shampoo bottle.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="s4-row" id="s5-brief">
+        <div class="body">
+          <p><strong>1 &middot; The brief.</strong> Type the spot in plain language and attach the storyboard and the product reference. Set the format, the mood, and a firm product-consistency note. New to storyboards? Our guide <a href="https://blog.sogni.ai/blogs/storyboards-that-move/">Storyboards that move</a> walks through making one from scratch.</p>
+          <div class="prompt">
+            <div class="label"><span>Prompt &middot; Storyboard to video</span><button class="copybtn" data-copy="lumi-chat">Copy</button></div>
+<pre id="lumi-chat">Use the reference storyboard and the product reference image. With Seedance, create a 15s, 16:9 photorealistic luxury beauty ad with a real-looking influencer - natural face, visible skin texture, pores, small imperfections, baby hairs, realistic wet hair and water.
+
+Keep the shampoo bottle exactly the same in shape, colour, cap, floral design and proportions across all shots. Do not add, change or generate any readable text, labels, logos, captions or watermarks on the product or scene.
+
+Cinematic warm bathroom light, premium influencer commercial style, natural movements, realistic foam, glossy healthy hair, consistent woman and consistent product throughout.</pre>
+          </div>
+        </div>
+        <div class="media">
+          <figure>
+            <img src="assets/lumi-chat-prompt.jpg" loading="lazy" decoding="async" alt="The LUMI brief typed into Sogni Chat with the storyboard and product reference attached">
+            <figcaption>The brief and references, dropped into Sogni Chat.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="s4-row" id="s5-plan">
+        <div class="body">
+          <p><strong>2 &middot; The plan.</strong> The agent inspects the board and the product, works out the beats, and gets the render approved - all before it draws a frame.</p>
+        </div>
+        <div class="media">
+          <figure>
+            <img class="thinking" src="assets/lumi-chat-thinking.jpg" loading="lazy" decoding="async" alt="Sogni Agent inspecting the storyboard and product and preparing the video">
+            <figcaption>It inspects, plans and gets approval before rendering.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="s4-row" id="s5-delivered">
+        <div class="body">
+          <p><strong>3 &middot; Delivered.</strong> The finished video lands right back in the conversation - with Extend, Refine and Generate-audio buttons to keep shaping it without ever leaving chat.</p>
+        </div>
+        <div class="media">
+          <figure>
+            <img src="assets/lumi-chat-video.jpg" loading="lazy" decoding="async" alt="The finished LUMI Seedance video delivered inside Sogni Chat with extend and refine options">
+            <figcaption>The Seedance video, handed back in the chat.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="s4-row" id="s5-board">
+        <div class="body">
+          <p>Here's the storyboard it drew along the way: nine panels with timecodes and voice-over baked in - bottle on the shelf, the shower ritual, the blow-dry payoff, the hero packshot. That's the beauty of a storyboard: you get a preview of every scene, and you can define and re-tweak it as many times as you like before spending a credit on the video.</p>
+          <figure style="margin:16px 0 0;text-align:center">
+            <img src="assets/lumi-hairdryer-cut.png" loading="lazy" decoding="async" alt="A cut-out hairdryer you can add as a styling-tool reference" style="max-height:150px;width:auto;display:inline-block;border:none;background:none">
+            <figcaption>Tip: drop in a styling tool like this dryer for extra realism.</figcaption>
+          </figure>
+        </div>
+        <div class="media">
+          <figure>
+            <img src="assets/lumi-storyboard.jpg" loading="lazy" decoding="async" alt="The LUMI 9-panel storyboard sheet, 16:9, 15 seconds">
+            <figcaption>A printable 9-panel board - real products consistent across every beat.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="s4-row" id="s5-final">
+        <div class="body">
+          <p>And the finished spot: a real-looking influencer with natural skin texture and wet hair, the LUMI bottle never changing - a polished 16:9 beauty ad straight out of the chat. It even picks up the hairdryer we put in the storyboard - dropping in a styling tool like that is a nice touch for extra realism.</p>
+        </div>
+        <div class="media">
+          <div style="display:grid;grid-template-columns:0.42fr 1fr;gap:12px;align-items:start">
+            <img src="assets/lumi-product.jpg" loading="lazy" decoding="async" alt="The LUMI shampoo product reference" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:12px;border:1px solid var(--line)">
+            <video data-src="assets/lumi-landscape.mp4" data-poster="assets/lumi-landscape-poster.jpg" autoplay muted loop controls playsinline preload="none" style="width:100%;border-radius:12px;border:1px solid var(--line)"></video>
+          </div>
+          <figcaption style="text-align:center;margin-top:8px">The product photo, and the finished 16:9 LUMI spot - unmute for the voice-over.</figcaption>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 06 -->
+<section id="s6">
+  <div class="stepwrap">
+    <div class="step-card s4">
+      <div class="s4-row">
+        <div class="body">
+          <span class="eyebrow">Step 06 &middot; Way 2 &middot; the one-line route &middot; the terminal</span>
+          <h3>No storyboard. No detailed prompt. Just the bottle and a sentence.</h3>
+          <p>The second way skips the storyboard entirely. Drop <em>only</em> the bottle into the <strong>Sogni Skill</strong> in your terminal and ask for a UGC ad in one line. The agent writes its own brief, picks Seedance, plans the beats and renders - start to finished MP4, hands-off.</p>
+          <div class="prompt">
+            <div class="label"><span>Prompt &middot; One line</span><button class="copybtn" data-copy="lumi-oneline">Copy</button></div>
+<pre id="lumi-oneline">Create an advertisement for this product (reference image). The text on the bottle must stay clearly visible and readable. Use Seedance, 15-second duration, 16:9. Style: UGC - an Instagram influencer testing the shampoo. Maintain brand consistency throughout.</pre>
+          </div>
+        </div>
+        <div class="media">
+          <div class="prompt">
+            <div class="label"><span>Terminal &middot; install the skill first</span><button class="copybtn" data-copy="cmd-s6">Copy</button></div>
+<pre id="cmd-s6">npx setup-sogni-agent-skill</pre>
+          </div>
+          <figure>
+            <img src="assets/lumi-terminal-2.jpg" loading="lazy" decoding="async" alt="The Sogni Skill generating the LUMI UGC ad in the terminal and confirming the output file">
+            <figcaption>From one sentence: the Skill writes the brief, renders, and saves the MP4.</figcaption>
+          </figure>
+        </div>
+      </div>
+      <div class="s4-row">
+        <div class="body">
+          <p>That's the entire workflow - and it's the one you'll reuse forever. Open the <strong>Sogni Skill</strong> in your terminal, swap in your own product as the <strong>reference image</strong>, and type <strong>one sentence</strong> describing what should happen. No storyboard, no prompt engineering - the agent fills in the rest: it drafts the brief, picks the model, estimates the Spark cost, renders, and saves the finished MP4.</p>
+          <p>New product next week? Drop its photo in as the reference and send the same one-liner - a fresh ad in minutes. Want a vertical cut for Reels, a square for the feed, or a different scene? Change just that part of the sentence and run it again; everything else stays locked.</p>
+          <div class="note"><b>Worth knowing - the honest bit.</b> The first render got flagged: a wet-hair bathroom scene tripped Seedance's <span class="m">content policy</span> - a common false positive for anything shower-adjacent. The agent simply retried with a vanity setup and it went through clean. When a beauty render bounces, nudge the scene (vanity, sink, getting-ready) rather than the wording, and it usually clears.</div>
+        </div>
+        <div class="media">
+          <div style="display:flex;gap:12px;justify-content:center;align-items:flex-start;flex-wrap:wrap">
+            <figure style="margin:0">
+              <img src="assets/lumi-product.jpg" loading="lazy" decoding="async" alt="The LUMI shampoo product reference" style="height:440px;width:auto;max-width:100%;object-fit:cover;border-radius:12px;border:1px solid var(--line)">
+              <figcaption style="text-align:center">The product.</figcaption>
+            </figure>
+            <figure style="margin:0">
+              <video data-src="assets/lumi-portrait.mp4" data-poster="assets/lumi-portrait-poster.jpg" autoplay muted loop controls playsinline preload="none" style="height:440px;width:auto;max-width:100%;border-radius:12px;border:1px solid var(--line)"></video>
+              <figcaption style="text-align:center">The one-line result - unmute for sound.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING / TRY IT NOW -->
+<section class="topsec">
+  <div class="band">
+    <div class="hero" style="align-items:center">
+      <div class="hero-text">
+        <span class="eyebrow"><span style="color:var(--accent)">&#9679;</span> Try it now</span>
+        <h2>One photo. A whole content calendar.</h2>
+        <p>That's the point of Sogni. The same photo that anchors your product writes the brief, casts the creator and renders the video - metered, reversible, and locked to your brand the whole way. No casting calls, no shipping samples, no waiting on footage.</p>
+        <p>Start in the chat or run it from your terminal. Then save the chain as a <strong>Workflow Template</strong> and the next product drop is one prompt away - a fresh batch of stills and a stack of videos, not a pile of separate calls.</p>
+        <div class="btns" style="justify-content:flex-start;margin-top:24px">
+          <a class="btn primary" href="https://chat.sogni.ai/">Open Sogni Chat</a>
+          <a class="btn ghost" href="https://sogni.ai/agent">Get the Sogni Skill</a>
+          <a class="btn ghost" href="https://app.sogni.ai/">Sogni Web</a>
+          <a class="btn ghost" href="https://docs.sogni.ai/">Read the docs</a>
+        </div>
+      </div>
+      <div class="feature">
+        <a href="https://chat.sogni.ai/" target="_blank" rel="noopener"><img src="assets/cta.jpg" loading="lazy" decoding="async" alt="Create UGC with your product - start at sogni.ai/chat"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="band">
+    <p class="privacy">We care about your data in our <a href="https://www.sogni.ai/privacy-policy">privacy policy</a>.</p>
+    <div class="fbar">
+      <a class="wordmark" href="https://www.sogni.ai/"><img src="https://cdn.prod.website-files.com/6630875599550e7ce589dac0/697b965e99cf495a05a7745e_logoSogni_parentBrand_WordMark_DarkMode_White.png" alt="Sogni"></a>
+      <div class="social">
+        <a href="https://discord.gg/2JjzA2zrrc" aria-label="Discord" title="Discord"><svg viewBox="0 0 24 24"><path d="M20 5a17 17 0 0 0-4.2-1.3l-.2.5a13 13 0 0 1 3.7 1.2 14 14 0 0 0-12 0A13 13 0 0 1 11 4.2L10.8 3.7A17 17 0 0 0 6.5 5C3.7 9 3 13 3.3 17a17 17 0 0 0 5.2 2.6l.4-1a11 11 0 0 1-1.8-.9l.4-.3a12 12 0 0 0 10.6 0l.4.3a11 11 0 0 1-1.8.9l.4 1A17 17 0 0 0 22 17c.4-4.7-.7-8.7-2-12zM9.3 14.7c-.8 0-1.5-.8-1.5-1.7s.7-1.7 1.5-1.7 1.5.8 1.5 1.7-.7 1.7-1.5 1.7zm5.4 0c-.8 0-1.5-.8-1.5-1.7s.7-1.7 1.5-1.7 1.5.8 1.5 1.7-.7 1.7-1.5 1.7z"/></svg></a>
+        <a href="https://t.me/sogniai" aria-label="Telegram" title="Telegram"><svg viewBox="0 0 24 24"><path d="M21.9 4.4 2.9 11.6c-1 .4-1 1.4-.2 1.7l4.9 1.5 1.8 5.7c.2.6.4.7.9.4l2.7-2 4.7 3.5c.6.3 1 .1 1.2-.6L23 5.5c.2-.9-.4-1.4-1.1-1.1zM8.6 14.2l8.6-5.4c.4-.2.8.1.5.4l-7 6.3-.3 3-1.4-4.3z"/></svg></a>
+        <a href="https://www.youtube.com/@SogniAI?sub_confirmation=1" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24"><path d="M23 7.5a3 3 0 0 0-2-2.1C19 5 12 5 12 5s-7 0-9 .4A3 3 0 0 0 1 7.5 31 31 0 0 0 .7 12 31 31 0 0 0 1 16.5a3 3 0 0 0 2 2.1C5 19 12 19 12 19s7 0 9-.4a3 3 0 0 0 2-2.1c.3-1.5.3-4.5.3-4.5s0-3-.3-4.5zM9.8 14.8V9.2l4.8 2.8z"/></svg></a>
+        <a href="https://www.reddit.com/r/Sogni_Protocol/" aria-label="Reddit" title="Reddit"><svg viewBox="0 0 24 24"><path d="M22 11.2a2 2 0 0 0-3.4-1.4 9.8 9.8 0 0 0-5-1.5l.9-4 2.8.6a1.4 1.4 0 1 0 .2-1l-3.4-.7c-.2 0-.4.1-.4.3l-1 4.5a9.8 9.8 0 0 0-5.1 1.5A2 2 0 1 0 4 13.6a3.7 3.7 0 0 0 0 .7c0 3.3 3.6 5.9 8 5.9s8-2.6 8-5.9a3.7 3.7 0 0 0 0-.7 2 2 0 0 0 1-1.4zM8 13.5a1.4 1.4 0 1 1 1.4 1.4A1.4 1.4 0 0 1 8 13.5zm6.8 3.3a4.8 4.8 0 0 1-2.8.8 4.8 4.8 0 0 1-2.8-.8.4.4 0 0 1 .5-.6 4 4 0 0 0 2.3.6 4 4 0 0 0 2.3-.6.4.4 0 1 1 .5.6zm-.2-1.9a1.4 1.4 0 1 1 1.4-1.4 1.4 1.4 0 0 1-1.4 1.4z"/></svg></a>
+        <a href="https://instagram.com/sogni.ai" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2c-2.7 0-3 0-4.1.1-1 0-1.8.2-2.4.5a4.9 4.9 0 0 0-1.8 1.1A4.9 4.9 0 0 0 2.6 5.5c-.3.6-.5 1.4-.5 2.4C2 9 2 9.3 2 12s0 3 .1 4.1c0 1 .2 1.8.5 2.4a4.9 4.9 0 0 0 1.1 1.8 4.9 4.9 0 0 0 1.8 1.1c.6.3 1.4.5 2.4.5C9 22 9.3 22 12 22s3 0 4.1-.1c1 0 1.8-.2 2.4-.5a5.1 5.1 0 0 0 2.9-2.9c.3-.6.5-1.4.5-2.4C22 15 22 14.7 22 12s0-3-.1-4.1c0-1-.2-1.8-.5-2.4a4.9 4.9 0 0 0-1.1-1.8 4.9 4.9 0 0 0-1.8-1.1c-.6-.3-1.4-.5-2.4-.5C15 2 14.7 2 12 2zm0 1.8c2.7 0 3 0 4 .1.9 0 1.5.2 1.8.3.5.2.8.4 1.1.7.3.3.5.6.7 1.1.1.3.3.9.3 1.8.1 1 .1 1.3.1 4s0 3-.1 4c0 .9-.2 1.5-.3 1.8-.2.5-.4.8-.7 1.1-.3.3-.6.5-1.1.7-.3.1-.9.3-1.8.3-1 .1-1.3.1-4 .1s-3 0-4-.1c-.9 0-1.5-.2-1.8-.3-.5-.2-.8-.4-1.1-.7-.3-.3-.5-.6-.7-1.1-.1-.3-.3-.9-.3-1.8-.1-1-.1-1.3-.1-4s0-3 .1-4c0-.9.2-1.5.3-1.8.2-.5.4-.8.7-1.1.3-.3.6-.5 1.1-.7.3-.1.9-.3 1.8-.3 1-.1 1.3-.1 4-.1zm0 3.1A5.1 5.1 0 1 0 17.1 12 5.1 5.1 0 0 0 12 6.9zm0 8.4A3.3 3.3 0 1 1 15.3 12 3.3 3.3 0 0 1 12 15.3zm5.3-8.6a1.2 1.2 0 1 0 1.2 1.2 1.2 1.2 0 0 0-1.2-1.2z"/></svg></a>
+        <a href="https://twitter.com/sogni_protocol" aria-label="X" title="X"><svg viewBox="0 0 24 24"><path d="M18.2 2h3.3l-7.2 8.2L23 22h-6.6l-5.2-6.8L5.3 22H2l7.7-8.8L1.7 2h6.8l4.7 6.2zm-1.2 18h1.8L7.1 3.9H5.2z"/></svg></a>
+        <a href="https://www.linkedin.com/company/sogni-ai" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.4 3H3.6A.6.6 0 0 0 3 3.6v16.8a.6.6 0 0 0 .6.6h16.8a.6.6 0 0 0 .6-.6V3.6a.6.6 0 0 0-.6-.6zM8.3 18.3H5.5V9.5h2.8zM6.9 8.3a1.6 1.6 0 1 1 1.6-1.6 1.6 1.6 0 0 1-1.6 1.6zm11.4 10H15.5v-4.3c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.3v4.3H9.7V9.5h2.7v1.2a3 3 0 0 1 2.7-1.5c2.9 0 3.4 1.9 3.4 4.3z"/></svg></a>
+        <a href="https://github.com/Sogni-AI" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 24 24"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.7 18 5 18 5c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A11.5 11.5 0 0 0 23.5 12C23.5 5.7 18.3.5 12 .5z"/></svg></a>
+        <a href="https://medium.com/sogni" aria-label="Medium" title="Medium"><svg viewBox="0 0 24 24"><path d="M2.8 7.4a.7.7 0 0 0-.2-.6L1.1 5.1V5H6l3.7 8.1L13 5h4.6v.1l-1.3 1.2a.4.4 0 0 0-.1.4v9.2a.4.4 0 0 0 .1.4l1.2 1.2v.1h-6v-.1l1.3-1.3c.1-.1.1-.1.1-.4V8.1l-3.6 9.1h-.5L4.6 8.1v6.1a.9.9 0 0 0 .2.7l1.7 2v.1H1.7v-.1l1.7-2a.8.8 0 0 0 .2-.7z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.copybtn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      if(!el) return;
+      navigator.clipboard.writeText(el.innerText).then(function(){
+        var t = btn.textContent; btn.textContent = 'Copied';
+        setTimeout(function(){ btn.textContent = t; }, 1400);
+      });
+    });
+  });
+
+  /* copy the prompt to clipboard when opening the chat, so it's ready to paste */
+  document.querySelectorAll('[data-copyopen]').forEach(function(a){
+    a.addEventListener('click', function(){
+      var el = document.getElementById(a.getAttribute('data-copyopen'));
+      if(el){ try{ navigator.clipboard.writeText(el.innerText); }catch(e){} }
+    });
+  });
+
+  /* Delay offscreen videos so the hero clip keeps the bandwidth on first load. */
+  (function(){
+    var lazyVideos = document.querySelectorAll('video[data-src]');
+    if(!lazyVideos.length) return;
+
+    function loadVideo(video){
+      if(video.dataset.loaded) return;
+      if(video.dataset.poster) video.poster = video.dataset.poster;
+      video.src = video.dataset.src;
+      video.load();
+      video.dataset.loaded = 'true';
+    }
+
+    if(!('IntersectionObserver' in window)){
+      lazyVideos.forEach(loadVideo);
+      return;
+    }
+
+    var videoObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        loadVideo(entry.target);
+        videoObserver.unobserve(entry.target);
+      });
+    }, { rootMargin:'400px 0px' });
+
+    lazyVideos.forEach(function(video){
+      if(video.dataset.poster && !video.getAttribute('poster')) video.poster = video.dataset.poster;
+      videoObserver.observe(video);
+    });
+  })();
+
+  /* image lightbox: click any content image to open fullscreen; close via X, backdrop, or Esc */
+  (function(){
+    var lb = document.createElement('div');
+    lb.className = 'lightbox';
+    lb.innerHTML = '<button class="lb-close" aria-label="Close">&times;</button><img alt="">';
+    document.body.appendChild(lb);
+    var lbImg = lb.querySelector('img');
+    var closeBtn = lb.querySelector('.lb-close');
+    function openLb(src, alt){ lbImg.src = src; lbImg.alt = alt || ''; lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeLb(){ lb.classList.remove('open'); lbImg.removeAttribute('src'); document.body.style.overflow = ''; }
+    document.querySelectorAll('img').forEach(function(im){
+      if (im.closest('.topbar') || im.closest('.bn-header') || im.closest('footer') || im.closest('.lightbox')) return;
+      im.classList.add('lb-zoom');
+      im.addEventListener('click', function(){ openLb(im.currentSrc || im.src, im.alt); });
+    });
+    closeBtn.addEventListener('click', closeLb);
+    lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && lb.classList.contains('open')) closeLb(); });
+  })();
+</script>
+</body>
+</html>
